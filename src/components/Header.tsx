@@ -1,9 +1,20 @@
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
 
 const Header = () => {
   const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     if (location.pathname !== '/') {
@@ -19,17 +30,35 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/20">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="text-xl font-serif text-foreground hover:text-primary transition-colors">
-            Apartment 11:11
+    <header className={cn(
+      "fixed top-0 left-0 right-0 z-50 transition-smooth border-b",
+      isScrolled 
+        ? "bg-background/95 backdrop-blur-lg border-border/30 shadow-elegant" 
+        : "bg-background/60 backdrop-blur-md border-border/10"
+    )}>
+      <div className="container-max section-padding">
+        <div className="flex items-center justify-between h-20">
+          <Link 
+            to="/" 
+            className="group relative"
+          >
+            <span className="text-2xl lg:text-3xl font-serif font-bold text-foreground group-hover:text-primary transition-smooth story-link">
+              Apartment 11:11
+            </span>
           </Link>
           
           <NavigationMenu>
-            <NavigationMenuList>
+            <NavigationMenuList className="space-x-2">
               <NavigationMenuItem>
-                <Link to="/" className={cn(navigationMenuTriggerStyle())}>
+                <Link 
+                  to="/" 
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "relative font-medium hover-scale transition-smooth",
+                    "hover:bg-accent/80 hover:text-primary",
+                    location.pathname === '/' && "bg-accent/50 text-primary"
+                  )}
+                >
                   Home
                 </Link>
               </NavigationMenuItem>
@@ -37,7 +66,10 @@ const Header = () => {
               <NavigationMenuItem>
                 <button 
                   onClick={() => scrollToSection('testimonials')}
-                  className={cn(navigationMenuTriggerStyle())}
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "relative font-medium hover-scale transition-smooth hover:bg-accent/80 hover:text-primary"
+                  )}
                 >
                   Testimonials
                 </button>
@@ -46,14 +78,25 @@ const Header = () => {
               <NavigationMenuItem>
                 <button 
                   onClick={() => scrollToSection('about')}
-                  className={cn(navigationMenuTriggerStyle())}
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "relative font-medium hover-scale transition-smooth hover:bg-accent/80 hover:text-primary"
+                  )}
                 >
                   About
                 </button>
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <Link to="/blogs" className={cn(navigationMenuTriggerStyle())}>
+                <Link 
+                  to="/blogs" 
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "relative font-medium hover-scale transition-smooth",
+                    "hover:bg-accent/80 hover:text-primary",
+                    location.pathname === '/blogs' && "bg-accent/50 text-primary"
+                  )}
+                >
                   Blogs
                 </Link>
               </NavigationMenuItem>
