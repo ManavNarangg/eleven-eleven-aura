@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const Contact = () => {
@@ -33,8 +34,9 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen">
+      <Header />
       {/* Header */}
-      <section className="py-24 bg-gradient-to-br from-brand-light to-brand-warm">
+      <section className="py-24 pt-32 bg-gradient-to-br from-brand-light to-brand-warm">
         <div className="container-max section-padding">
           <div className="text-center animate-fade-in">
             <h1 className="text-5xl lg:text-6xl font-serif font-bold mb-6">
