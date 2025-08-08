@@ -35,8 +35,8 @@ const Contact = () => {
   return (
     <div className="min-h-screen">
       <Header />
-      {/* Header */}
-      <section className="py-24 pt-32 bg-gradient-to-br from-brand-light to-brand-warm">
+      {/* Hero Section */}
+      <section className="py-24 pt-32 bg-gradient-to-br from-brand-light to-brand-warm relative">
         <div className="container-max section-padding">
           <div className="text-center animate-fade-in">
             <h1 className="text-5xl lg:text-6xl font-serif font-bold mb-6">
